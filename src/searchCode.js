@@ -13,7 +13,7 @@ const searchCode = () => {
             .then(() => {
                 if(searchResponse.total === 1){
                     document.querySelector('.result').value = searchResponse.data[0].post_code;
-                    saveData(searchResponse.data[0].post_code);
+                    saveData(searchResponse.data[0]);
                     rodo();
 
                 }else {

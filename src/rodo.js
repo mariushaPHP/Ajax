@@ -1,15 +1,22 @@
 
 const rodo = () => {
+    if(JSON.parse(localStorage.getItem('dataArr')) != null){
 
-    let arr = [];
-    arr = JSON.parse(localStorage.getItem('dataArr'));
-    //console.log(arr)
-    for(let i of arr){
-        const p = document.createElement('p');
-        p.textContent = i;
-        console.log("****" + i)
-        document.querySelector('.storage').appendChild(p)
+        let element = document.querySelector(".storage");
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+
+        let arr = [];
+        arr = JSON.parse(localStorage.getItem('dataArr'));
+
+        for(let i of arr){
+            const p = document.createElement('p');
+            p.textContent = `${i.address}, ${i.city}. Pasto kodas: ${i.post_code}`;
+            document.querySelector('.storage').appendChild(p)
+        }
+        document.querySelector('.btn2').style.display = "block";
     }
 }
 
-export default rodo
+export default rodo;

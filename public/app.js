@@ -3123,6 +3123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _renderForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderForm */ "./src/renderForm.js");
 /* harmony import */ var _searchCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./searchCode */ "./src/searchCode.js");
 /* harmony import */ var _clear__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clear */ "./src/clear.js");
+/* harmony import */ var _rodo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rodo */ "./src/rodo.js");
+
 
 
 
@@ -3131,6 +3133,7 @@ __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap
 
 (0,_renderForm__WEBPACK_IMPORTED_MODULE_0__["default"])();
 (0,_searchCode__WEBPACK_IMPORTED_MODULE_1__["default"])();
+(0,_rodo__WEBPACK_IMPORTED_MODULE_3__["default"])();
 (0,_clear__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
 /***/ }),
@@ -3147,7 +3150,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var clear = function clear() {
   document.querySelector('.btn2').addEventListener('click', function () {
+    document.querySelector('.term').value = "";
     localStorage.removeItem('dataArr');
+    console.log("localStoraguikas " + localStorage.getItem('dataArr'));
   });
 };
 
@@ -3166,7 +3171,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var form = function form() {
-  return "\n    <div class=\"row g-3\">\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control term\" placeholder=\"Iveskite adresa\" aria-label=\"Adresas\">\n        </div>\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control result\" aria-label=\"Adresas\" readonly>\n        </div>\n        <button type=\"submit\" class=\"btn btn-primary mb-2\" >Ieskoti</button>\n        <button type=\"submit\" class=\"btn2 btn btn-primary mb-2\">Istrinti</button>\n        <div class=\"col info\">\n            <div class=\"storage\"></div>\n        </div>\n    </div>";
+  return "\n    <div class=\"row g-3\">\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control term\" placeholder=\"Iveskite adresa\" aria-label=\"Adresas\">\n        </div>\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control result\" aria-label=\"Adresas\" readonly>\n        </div>\n        <button type=\"submit\" class=\"btn btn-primary mb-2\" >Ieskoti</button>\n        \n        <div class=\"col info\">\n            <div class=\"storage\"></div>\n        </div>\n        <button type=\"submit\" class=\"btn2 btn btn-primary mb-2\" style=\"display: none\">Istrinti</button>\n        \n    </div>";
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (form);
@@ -3214,24 +3219,33 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var rodo = function rodo() {
-  var arr = [];
-  arr = JSON.parse(localStorage.getItem('dataArr')); //console.log(arr)
+  if (JSON.parse(localStorage.getItem('dataArr')) != null) {
+    var element = document.querySelector(".storage");
 
-  var _iterator = _createForOfIteratorHelper(arr),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var i = _step.value;
-      var p = document.createElement('p');
-      p.textContent = i;
-      console.log("****" + i);
-      document.querySelector('.storage').appendChild(p);
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
     }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
+
+    var arr = [];
+    arr = JSON.parse(localStorage.getItem('dataArr'));
+
+    var _iterator = _createForOfIteratorHelper(arr),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var i = _step.value;
+        var p = document.createElement('p');
+        p.textContent = "".concat(i.address, ", ").concat(i.city, ". Pasto kodas: ").concat(i.post_code);
+        document.querySelector('.storage').appendChild(p);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    document.querySelector('.btn2').style.display = "block";
   }
 };
 
@@ -3252,8 +3266,8 @@ __webpack_require__.r(__webpack_exports__);
 var saveData = function saveData(data) {
   var arr = [];
   if (JSON.parse(localStorage.getItem('dataArr')) != null) arr = JSON.parse(localStorage.getItem('dataArr'));
-  arr.push(data); //console.log(arr);
-
+  arr.push(data);
+  console.log(arr);
   localStorage.setItem('dataArr', JSON.stringify(arr));
 };
 
@@ -3290,7 +3304,7 @@ var searchCode = function searchCode() {
     }).then(function () {
       if (searchResponse.total === 1) {
         document.querySelector('.result').value = searchResponse.data[0].post_code;
-        (0,_saveData__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResponse.data[0].post_code);
+        (0,_saveData__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResponse.data[0]);
         (0,_rodo__WEBPACK_IMPORTED_MODULE_2__["default"])();
       } else {
         document.querySelector('main').innerHTML = "<p>Paieska nesekminga</p>";
