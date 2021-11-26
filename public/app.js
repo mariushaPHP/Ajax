@@ -3123,7 +3123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _renderForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderForm */ "./src/renderForm.js");
 /* harmony import */ var _searchCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./searchCode */ "./src/searchCode.js");
 /* harmony import */ var _clear__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clear */ "./src/clear.js");
-/* harmony import */ var _rodo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rodo */ "./src/rodo.js");
+/* harmony import */ var _show__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./show */ "./src/show.js");
 
 
 
@@ -3133,7 +3133,7 @@ __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap
 
 (0,_renderForm__WEBPACK_IMPORTED_MODULE_0__["default"])();
 (0,_searchCode__WEBPACK_IMPORTED_MODULE_1__["default"])();
-(0,_rodo__WEBPACK_IMPORTED_MODULE_3__["default"])();
+(0,_show__WEBPACK_IMPORTED_MODULE_3__["default"])();
 (0,_clear__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
 /***/ }),
@@ -3150,9 +3150,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var clear = function clear() {
   document.querySelector('.btn2').addEventListener('click', function () {
-    document.querySelector('.term').value = "";
+    document.querySelector('section .card-body').value = "";
     localStorage.removeItem('dataArr');
     console.log("localStoraguikas " + localStorage.getItem('dataArr'));
+    var element = document.querySelector(".storage");
+
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+
+    document.querySelector('.btn2').style.display = 'none';
   });
 };
 
@@ -3171,7 +3178,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var form = function form() {
-  return "\n    <div class=\"row g-3\">\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control term\" placeholder=\"Iveskite adresa\" aria-label=\"Adresas\">\n        </div>\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control result\" aria-label=\"Adresas\" readonly>\n        </div>\n        <button type=\"submit\" class=\"btn btn-primary mb-2\" >Ieskoti</button>\n        \n        <div class=\"col info\">\n            <div class=\"storage\"></div>\n        </div>\n        <button type=\"submit\" class=\"btn2 btn btn-primary mb-2\" style=\"display: none\">Istrinti</button>\n        \n    </div>";
+  return "\n    <div class=\"row g-3\">\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control term\" placeholder=\"Iveskite adresa\" aria-label=\"Adresas\">\n        </div>\n        <div class=\"col\">\n            <input type=\"text\" class=\"form-control result\" aria-label=\"Adresas\" readonly>\n        </div>\n        <button type=\"submit\" class=\"btn1 btn btn-primary mb-2\" >Ieskoti</button>\n        \n        \n        \n    </div>";
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (form);
@@ -3199,57 +3206,6 @@ var renderForm = function renderForm() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderForm);
-
-/***/ }),
-
-/***/ "./src/rodo.js":
-/*!*********************!*\
-  !*** ./src/rodo.js ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var rodo = function rodo() {
-  if (JSON.parse(localStorage.getItem('dataArr')) != null) {
-    var element = document.querySelector(".storage");
-
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-
-    var arr = [];
-    arr = JSON.parse(localStorage.getItem('dataArr'));
-
-    var _iterator = _createForOfIteratorHelper(arr),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var i = _step.value;
-        var p = document.createElement('p');
-        p.textContent = "".concat(i.address, ", ").concat(i.city, ". Pasto kodas: ").concat(i.post_code);
-        document.querySelector('.storage').appendChild(p);
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    document.querySelector('.btn2').style.display = "block";
-  }
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rodo);
 
 /***/ }),
 
@@ -3287,7 +3243,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ajaxService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ajaxService */ "./src/ajaxService.js");
 /* harmony import */ var _saveData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./saveData */ "./src/saveData.js");
-/* harmony import */ var _rodo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rodo */ "./src/rodo.js");
+/* harmony import */ var _show__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./show */ "./src/show.js");
 
 
 
@@ -3305,7 +3261,7 @@ var searchCode = function searchCode() {
       if (searchResponse.total === 1) {
         document.querySelector('.result').value = searchResponse.data[0].post_code;
         (0,_saveData__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResponse.data[0]);
-        (0,_rodo__WEBPACK_IMPORTED_MODULE_2__["default"])();
+        (0,_show__WEBPACK_IMPORTED_MODULE_2__["default"])();
       } else {
         document.querySelector('main').innerHTML = "<p>Paieska nesekminga</p>";
       }
@@ -3314,6 +3270,57 @@ var searchCode = function searchCode() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (searchCode);
+
+/***/ }),
+
+/***/ "./src/show.js":
+/*!*********************!*\
+  !*** ./src/show.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var show = function show() {
+  if (JSON.parse(localStorage.getItem('dataArr')) != null) {
+    var element = document.querySelector(".storage");
+
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+
+    var arr = [];
+    arr = JSON.parse(localStorage.getItem('dataArr'));
+
+    var _iterator = _createForOfIteratorHelper(arr),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var i = _step.value;
+        var p = document.createElement('p');
+        p.textContent = "".concat(i.address, ", ").concat(i.city, ". Pasto kodas: ").concat(i.post_code);
+        document.querySelector('.storage').appendChild(p);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    document.querySelector('.btn2').style.display = "block";
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (show);
 
 /***/ }),
 

@@ -1,6 +1,6 @@
 import ajaxService from "./ajaxService";
 import saveData from "./saveData";
-import rodo from "./rodo";
+import show from "./show";
 
 const searchCode = () => {
     document.querySelector('form').addEventListener('submit', (event) => {
@@ -14,7 +14,7 @@ const searchCode = () => {
                 if(searchResponse.total === 1){
                     document.querySelector('.result').value = searchResponse.data[0].post_code;
                     saveData(searchResponse.data[0]);
-                    rodo();
+                    show();
 
                 }else {
                     document.querySelector('main').innerHTML = "<p>Paieska nesekminga</p>"

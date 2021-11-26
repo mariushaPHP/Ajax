@@ -2,7 +2,7 @@
 import renderForm from "./renderForm";
 import searchCode from "./searchCode";
 import clear from "./clear";
-import rodo from "./rodo";
+import show from "./show";
 
 
 require('bootstrap');
@@ -10,5 +10,5 @@ require('bootstrap');
 
 renderForm();
 searchCode();
-rodo();
+show();
 clear();
